@@ -10,9 +10,16 @@ async function retrieveWeatherInfo(location) {
     );
     let jsonData = await apiResponse.json();
     console.log("data:", jsonData);
-    return jsonData.forecast.forecastday.forEach((day) => {
-      createWeatherCard(day);
-    });
+
+    let daysArray = jsonData.forecast.forecastday;
+    console.log(
+      "🚀 ~ file: index.js:15 ~ retrieveWeatherInfo ~ daysArray:",
+      daysArray
+    );
+
+    for (let i = 0; i < daysArray.length; i++) {
+      createWeatherCard(daysArray[i], i);
+    }
     // console.log("data:", jsonData.[1].day.condition.text);
   } catch (error) {
     console.log("error:", error);
@@ -28,14 +35,35 @@ function activateSubmitButton() {
   const submitButton = document.querySelector(".submit-button");
 }
 
-function createWeatherCard(day) {
-  console.log("day:", day.date);
+function createWeatherCard(day, index) {
+  //TODO: fetch the image area div using the index of the thing
   if (cardsContainer) {
-    const weatherCard = document.createElement("div");
-    weatherCard.classList.add("weather-card");
-    weatherCard.textContent = day.date;
-    cardsContainer.appendChild(weatherCard);
+    appendTopBar(day, index);
+    appendImage(day, index);
   }
+}
+
+function appendTopBar(day, index) {
+  const dateDiv = document.querySelector(`.date-indicator-${index}`);
+  const tempDiv = document.querySelector(`.temp-indicator-${index}`);
+  appendDateInfo(day, dateDiv);
+
+  appendTempInfo(day, tempDiv);
+}
+
+function appendDateInfo(day, dateDiv) {
+  dateDiv.textContent = day.date;
+}
+
+function appendTempInfo(day, tempDiv) {
+  tempDiv.textContent = day.day.avgtemp_c + "°C";
+}
+
+function appendImage(day, index) {
+  const imageDiv = document.querySelector(`.image-area-${index}`);
+  let image = new Image();
+  image.src = day.day.condition.icon;
+  imageDiv.appendChild(image);
 }
 
 //TODO: implement an IIFE that displays a default country and adds event listeners to the input field.
