@@ -1,9 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Development</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1"></head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
   <body>
-  <script src="runtime.bundle.js"></script><script src="main.bundle.js"></script></body>
+    <label for="search">Enter the name of a city here.</label>
+    <div class="search-bar flexbox flexbox-row">
+      <input type="text" id="search" />
+      <div class="submit-button">🔍</div>
+    </div>
+
+    <div class="cards-container flexbox">
+      <div class="weather-card">
+        <div class="top-row-0 top-row flexbox">
+          <div class="date-indicator-0"></div>
+          <div class="temp-indicator-0"></div>
+        </div>
+        <div class="image-area-0 flexbox"></div>
+      </div>
+
+      <div class="weather-card">
+        <div class="top-row-1 top-row flexbox">
+          <div class="date-indicator-1"></div>
+          <div class="temp-indicator-1"></div>
+        </div>
+        <div class="image-area-1 flexbox"></div>
+      </div>
+
+      <div class="weather-card">
+        <div class="top-row-2 top-row flexbox">
+          <div class="date-indicator-2"></div>
+          <div class="temp-indicator-2"></div>
+        </div>
+        <div class="image-area-2 flexbox"></div>
+      </div>
+    </div>
+    <script src="runtime.bundle.js"></script>
+    <script src="main.bundle.js"></script>
+  </body>
 </html>
