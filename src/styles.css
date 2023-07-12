@@ -173,4 +173,7 @@ body {
   margin-right: 20px;
   margin-left: 20px;
   padding: 0.45rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
