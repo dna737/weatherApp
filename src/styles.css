@@ -130,7 +130,6 @@ table {
 
 .flexbox {
   display: flex;
-  flex-direction: column;
   justify-content: center;
 }
 
@@ -151,4 +150,16 @@ table {
 .submit-button {
   background-color: rgb(0, 0, 255);
   padding-top: 0.2rem;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.cards-container {
+  height: fit-content;
+  width: fit-content;
 }
