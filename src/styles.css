@@ -177,3 +177,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
 }
+
+[class^="description-area"] {
+  text-align: center;
+}
