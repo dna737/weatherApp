@@ -128,7 +128,8 @@ table {
   border-spacing: 0;
 }
 
-.flexbox {
+.flexbox,
+body {
   display: flex;
   justify-content: center;
 }
@@ -139,7 +140,6 @@ table {
 
 .flexbox-col {
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
@@ -153,8 +153,6 @@ table {
 }
 
 body {
-  display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
 }
@@ -162,4 +160,13 @@ body {
 .cards-container {
   height: fit-content;
   width: fit-content;
+}
+
+.top-row {
+  justify-content: space-between;
+}
+
+.weather-card {
+  min-height: 200px;
+  min-width: 200px;
 }
