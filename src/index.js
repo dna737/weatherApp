@@ -39,6 +39,7 @@ function createWeatherCard(day, index) {
   //TODO: fetch the image area div using the index of the thing
   if (cardsContainer) {
     appendTopBar(day, index);
+    appendDescription(day, index);
     appendImage(day, index);
   }
 }
@@ -47,7 +48,6 @@ function appendTopBar(day, index) {
   const dateDiv = document.querySelector(`.date-indicator-${index}`);
   const tempDiv = document.querySelector(`.temp-indicator-${index}`);
   appendDateInfo(day, dateDiv);
-
   appendTempInfo(day, tempDiv);
 }
 
@@ -57,6 +57,11 @@ function appendDateInfo(day, dateDiv) {
 
 function appendTempInfo(day, tempDiv) {
   tempDiv.textContent = day.day.avgtemp_c + "°C";
+}
+
+function appendDescription(day, index) {
+  const descriptionArea = document.querySelector(`.description-area-${index}`);
+  descriptionArea.textContent = day.day.condition.text;
 }
 
 function appendImage(day, index) {
