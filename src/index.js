@@ -71,6 +71,7 @@ function appendTopBar(day, index) {
   const tempDiv = document.querySelector(`.temp-indicator-${index}`);
   appendDateInfo(day, dateDiv);
   appendTempInfo(day, tempDiv);
+  activateTempButton(day, tempDiv);
 }
 
 function appendDateInfo(day, dateDiv) {
@@ -78,7 +79,23 @@ function appendDateInfo(day, dateDiv) {
 }
 
 function appendTempInfo(day, tempDiv) {
-  tempDiv.textContent = day.day.avgtemp_c + "°C";
+  if (tempDiv.textContent) {
+    //already contains content. It's either celsius or fahrenheit.
+    if (tempDiv.textContent.includes("°C")) {
+      tempDiv.textContent = day.day.avgtemp_f + "°F";
+    } else {
+      tempDiv.textContent = day.day.avgtemp_c + "°C";
+    }
+  } else {
+    //the card is being created. It needs to be set to celsius.
+    tempDiv.textContent = day.day.avgtemp_c + "°C";
+  }
+}
+
+function activateTempButton(day, tempDiv) {
+  tempDiv.addEventListener("click", () => {
+    appendTempInfo(day, tempDiv);
+  });
 }
 
 function appendDescription(day, index) {
