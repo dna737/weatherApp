@@ -43,7 +43,7 @@ async function retrieveWeatherDetails(apiResponse) {
 
 function sanitizeInput(input) {
   if (!input) {
-    console.log("london");
+    console.log("London");
     return "London";
   }
   return input;
@@ -53,14 +53,11 @@ function activateSubmitButton() {
   const submitButton = document.querySelector(".submit-button");
   submitButton.addEventListener("click", () => {
     const inputValue = document.getElementById("search").value;
-    hitWeatherApi(inputValue);
-    retrieveWeatherDetails(apiResponse);
-    //FIXME: You can place the two functions above in another function called "updateLocation()" or something similar.
+    setWeatherInfo(inputValue);
   });
 }
 
 function createWeatherCard(day, index) {
-  console.log("called craeteWeatherCard");
   //TODO: fetch the image area div using the index of the thing
   if (cardsContainer) {
     appendTopBar(day, index);
@@ -104,12 +101,13 @@ function manageWeatherCards(data) {
   }
 }
 
-//TODO: implement an IIFE that displays a default country and adds event listeners to the input field.
-(async () => {
-  activateSubmitButton();
-
-  //TODO: you need to be able to call the default location without creating a "hellish" thing. LOOK AT STEPS 2 AND 3.
-  let apiResponse = await hitWeatherApi();
+async function setWeatherInfo(inputValue = "") {
+  let apiResponse = await hitWeatherApi(inputValue);
   let data = await retrieveWeatherDetails(apiResponse);
   manageWeatherCards(data);
+}
+
+(() => {
+  activateSubmitButton();
+  setWeatherInfo();
 })();
