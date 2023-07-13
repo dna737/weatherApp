@@ -2,38 +2,31 @@ import "./styles.css";
 
 const cardsContainer = document.querySelector(".cards-container");
 //API key: d76698f4e34640fa8c434718230206
+
 async function hitWeatherApi(location) {
   let apiResponse = null;
+  let jsonData = null;
   try {
     let userInput = sanitizeInput(location);
 
     apiResponse = await fetch(
       `http://api.weatherapi.com/v1/forecast.json?key=d76698f4e34640fa8c434718230206&q=${userInput}&days=3`
     );
-    return apiResponse;
+
+    jsonData = await apiResponse.json();
+    return jsonData;
   } catch {
     apiResponse = await fetch(
       `http://api.weatherapi.com/v1/forecast.json?key=d76698f4e34640fa8c434718230206&q=London&days=3`
     );
-    return apiResponse;
+    jsonData = await apiResponse.json();
+    return jsonData;
   }
 }
 
-async function retrieveWeatherDetails(apiResponse) {
-  console.log(
-    "🚀 ~ file: index.js:23 ~ retrieveWeatherDetails ~ apiResponse:",
-    apiResponse
-  );
+async function retrieveWeatherDetails(jsonData) {
   try {
-    let jsonData = await apiResponse.json();
-
     let daysArray = jsonData.forecast.forecastday;
-    let currLocation =
-      jsonData.location.name + ", " + jsonData.location.country;
-    console.log(
-      "🚀 ~ file: index.js:20 ~ hitWeatherApi ~ location:",
-      currLocation
-    );
 
     return daysArray;
   } catch {
@@ -47,6 +40,13 @@ function sanitizeInput(input) {
     return "London";
   }
   return input;
+}
+
+function displayCurrentLocation(jsonData) {
+  const locationSpecifier = document.querySelector(".location-specifier");
+
+  locationSpecifier.textContent =
+    jsonData.location.name + ", " + jsonData.location.country;
 }
 
 function activateSubmitButton() {
@@ -102,9 +102,12 @@ function manageWeatherCards(data) {
 }
 
 async function setWeatherInfo(inputValue = "") {
-  let apiResponse = await hitWeatherApi(inputValue);
-  let data = await retrieveWeatherDetails(apiResponse);
+  let jsonData = await hitWeatherApi(inputValue);
+  let data = await retrieveWeatherDetails(jsonData);
   manageWeatherCards(data);
+
+  //display the location that the user searched for:
+  displayCurrentLocation(jsonData);
 }
 
 (() => {
