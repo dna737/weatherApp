@@ -4,9 +4,13 @@ const cardsContainer = document.querySelector(".cards-container");
 //API key: d76698f4e34640fa8c434718230206
 async function retrieveWeatherInfo(location) {
   let userInput = sanitizeInput(location);
+  console.log(
+    "🚀 ~ file: index.js:7 ~ retrieveWeatherInfo ~ userInput:",
+    userInput
+  );
   try {
     let apiResponse = await fetch(
-      `http://api.weatherapi.com/v1/forecast.json?key=d76698f4e34640fa8c434718230206&q=53703&days=3`
+      `http://api.weatherapi.com/v1/forecast.json?key=d76698f4e34640fa8c434718230206&q=${userInput}&days=3`
     );
     let jsonData = await apiResponse.json();
     console.log("data:", jsonData);
@@ -20,7 +24,6 @@ async function retrieveWeatherInfo(location) {
     for (let i = 0; i < daysArray.length; i++) {
       createWeatherCard(daysArray[i], i);
     }
-    // console.log("data:", jsonData.[1].day.condition.text);
   } catch (error) {
     console.log("error:", error);
   }
@@ -33,6 +36,10 @@ function sanitizeInput(input) {
 
 function activateSubmitButton() {
   const submitButton = document.querySelector(".submit-button");
+  submitButton.addEventListener("click", () => {
+    const inputValue = document.getElementById("search").value;
+    retrieveWeatherInfo(inputValue);
+  });
 }
 
 function createWeatherCard(day, index) {
@@ -68,6 +75,7 @@ function appendImage(day, index) {
   const imageDiv = document.querySelector(`.image-area-${index}`);
   let image = new Image();
   image.src = day.day.condition.icon;
+  imageDiv.innerHTML = "";
   imageDiv.appendChild(image);
 }
 
